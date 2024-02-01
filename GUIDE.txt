@@ -1,0 +1,56 @@
+---------------------------------------------------------------------------------
+|This GUIDE gives you the steps to build a simple web application using Laravel.|
+---------------------------------------------------------------------------------
+
+1. Install composer, Node.js and Xampp.
+2. Create a new laravel project:
+    composer create-project laravel/laravel <name>>
+
+If you don't want to install a software for localhost. Laravel has a tool to
+develop your local server:
+
+1. Move in your Laravel project file:
+    cd <your_project>
+
+2. Use the next command:
+    php -S  localhost:8000 -t public/
+                or
+    php -S <your server> -t public/
+
+--------------------------------- Creating MVC --------------------------
+1. Use the next command:
+    php artisan make:model task -mcr
+
+The new TABLE was created in migration folder.
+MODEL was create in /app/Models/.
+CONTROLLER was created in /app/http/Controllers/.
+
+If you need yo check more information about the type of value, check:
+https://laravel.com/docs/10.x/migrations#column-method-string
+
+------------------------- tables -------------------------------------
+In database/migrationd/2024_02_01_224918_create_tasks_table.php
+
+1. In up function, you can add your new db tables:
+
+    e.p.,
+    Schema::create('tasks', function (Blueprint $table) {
+        $table->id();
+        $table->string("task");
+        $table->timestamps();
+    });
+
+----------------------- config .env -----------------------
+1. Access to .env file
+2. Found DB_DATABASE=laravel and modifies with:
+    DB_DATABASE=<name of your project>
+
+------------------------- migration ---------------------------------
+This part functions when we want to work whith our db and we want to create new tables.
+It's to say, we always will work with this folder if we modify anything of the db.
+
+1. /database/migration/
+2. In the terminal, type:
+    php artisan migrate
+With this, we'll go to migrate all our tables directly to the db.
+
