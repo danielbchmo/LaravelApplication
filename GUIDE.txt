@@ -54,3 +54,92 @@ It's to say, we always will work with this folder if we modify anything of the d
     php artisan migrate
 With this, we'll go to migrate all our tables directly to the db.
 
+------------------------------ views folder --------------------------
+You can found it inside of /resources/views/
+It's all the code you can show in the design
+
+There're a specific folder where you'll be able to move the main design that the users will see.
+    /resources/routes/web.php
+
+To create a new view, you need to name that file as <name>.blade.php
+
+---------------------------------- routes -----------------------------
+In /resources/routes/web.php
+
+REMEMBER:
+    You can code in web.php the route you need the users see.
+    But, as a good practice, you have to call the controller and conect it with web.php
+    for displaying your site.
+
+(After you can check this)
+
+--------------------------- sending and receiving data -------------------------
+1. In the index.blade.php or the file that you added before as a view, add a form:
+    
+    <form action="{{ url('/') }}" method="post">
+
+        @csrf //Security key from Laravel
+        <input type="text" name="task" id="task">
+        <input type="submit" value="Agregar tarea">
+
+    </form>
+
+---------------------------- access to controller ---------------------------
+In web.blade.php, for calling a controller:
+
+1. Export the controller route:
+    use App\Http\Controllers\TaskController;
+
+2. Now, you can call the TaskController using its methods:
+    Route::get('/',[TaskController::class,'index']);
+
+3. In TaskController, inside of index function:
+    public function index()
+    {
+        return view('task.index');
+    }
+
+--------------------------- Post method in controller ---------------------
+Similar like get method, in web.php, just copy the get route and modify it:
+
+1. information will be received in the store function:
+
+    Route::post('/',[TaskController::class,'store']);
+
+2. In the controller, just we will code a print_r for checking what's happening:
+    
+    public function store(Request $request)
+    {
+        print_r($_POST);
+    }
+
+(NOTE: For displaying data, you have to use php -S  localhost:8000 -t public/ command)
+
+------------------------ Access model to DB --------------------------------
+We'll use the model /app/Models/.
+Here we go to use all the fields to save data.
+
+1. Code the next insido the class:
+    class task extends Model
+    {
+        use HasFactory;
+        protected $fillable=[
+            'task'
+        ];
+    }
+
+It allows to interact with the db.
+
+2. Export the Model:
+    use App\Models\task;
+
+3. In the controller, inside store function, add:
+    $task=request()->all();
+    Task::create($task);
+
+Where request() is used to receive the data from the form.
+And Task::create($task) saves the data into the database.
+
+4. Return:
+    return redirect('/');
+

@@ -1,18 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+//Change the folder where you'll see the index.
+/*Route::get('/', function () {
+    return view('task.index');
+});*/
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[TaskController::class,'index']);
+Route::post('/',[TaskController::class,'store']);
