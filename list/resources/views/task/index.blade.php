@@ -10,12 +10,24 @@
 <body>
 
   <form action="{{ url('/') }}" method="post">
-    
+
     @csrf
     <input type="text" name="task" id="task">
     <input type="submit" value="Agregar tarea">
 
   </form>
+  <br>
+
+  <table border="1">
+    <tr>
+      <th>Tarea</th>
+      <th>Acción</th>
+    </tr>
+    <tr>
+      <td>Hacer una Aplicación</td>
+      <td>X</td>
+    </tr>
+  </table>
 
 </body>
 

@@ -142,4 +142,3 @@ And Task::create($task) saves the data into the database.
 
 4. Return:
     return redirect('/');
-
