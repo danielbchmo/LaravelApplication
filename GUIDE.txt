@@ -142,3 +142,56 @@ And Task::create($task) saves the data into the database.
 
 4. Return:
     return redirect('/');
+
+------------------------ reading and showing data --------------------------
+In our controller, we need to recover the information with a query:
+
+1. Inside the index function of the Controller, write:
+    public function index()
+    {
+        $task['tasks']= Task::all();
+        return view('task.index',$task);
+    }
+
+2. In our index.blade, indise of the table seccion, we need to code and loop for showing the information:
+    @foreach($tasks as $task)
+    <tr>
+        //show a task from task column
+      <td> {{$task->task}} </td>
+      <td>X</td>
+    </tr>
+    @endforeach
+
+---------------------------- delete records ---------------------------
+For doing this, inside of our table, we have to call a form to delete.
+
+1. Do a form with the next action:
+
+    // call to destroy method in TaskController and set up it with the ID
+    <form action="{{ route('task.destroy',$task->id) }}" method="post">
+
+Check it complete:
+    <form action="{{ route('task.destroy',$task->id) }}" method="post">
+      @csrf
+      @method('DELETE')
+      <input type="submit" value="x">
+    </form>
+
+2. In web.php, add the next route:
+    Route::delete('/{id}',[TaskController::class,'destroy'])->name('task.destroy');
+
+3. In TaskController, check and code the destroy function:
+    public function destroy($id)
+    {
+        $task= Task::findOrFail($id);
+        $task->delete();
+        return redirect('/');
+    }
+
+Finally, you can desing your our style.
+You can check the code complete in git.
+THANKS :)
+
+
+
+
